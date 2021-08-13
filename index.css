@@ -1,0 +1,12 @@
+.hljs-ln-numbers {
+    text-align: center;
+    color: #ccc;
+    border-right: 2px solid #CCC;
+    vertical-align: top;
+    padding-right: 5px;
+
+}
+
+.hljs-ln-code {
+    padding-left: 20px;
+}
