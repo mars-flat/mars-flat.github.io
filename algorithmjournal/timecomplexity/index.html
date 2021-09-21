@@ -93,12 +93,12 @@
             <br><br>
             <code><pre>
 int f(int *arr, int n) { // n is the length of the array
-    for (int const &elem: arr) {
+    for (int i = 0; i < n; ++i) {
         bool hasGreater = false;
-        for (int const &cmp: arr) {
-            if (cmp > elem) hasGreater = true;
+        for (int j = 0; j < n; ++j) {
+            if (arr[j] > arr[i]) hasGreater = true;
         }
-        if (!hasGreater) return elem;
+        if (!hasGreater) return arr[i];
     }
     return -1;
 }
@@ -147,8 +147,8 @@ int f(int *arr, int n) { // n is the length of the array
             <code><pre>
 int f(int *arr, int n) { // n is the length of the array
     int mx = INT_MIN;
-    for (int const &elem: arr) {
-        if (elem > mx) mx = elem;
+    for (int i = 0; i < n; ++i) {
+        if (arr[i] > mx) mx = arr[i];
     }
     return mx;
 }

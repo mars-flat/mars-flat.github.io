@@ -10,13 +10,15 @@
         <div class="content">
             <h1>Prefix and Suffix Arrays</h1>
             <p>
-            Prefix and suffix arrays are simple data structures that can be used to optimize some problems from \(\mathcal{O}(N^2)\) to \(\mathcal{O}(N)\) time.
+            Prefix and suffix arrays are simple data structures that can be used to optimize some problems from quadratic to linear time.
             <br><br>
             Simply put, \(\text{pfx}[i]\) stores the result of an operation done for the first \(i \text{ }(1 \le i \le N)\) elements in the array (\(N\) being the size of the array). 
             <br>
             This operation can be of many types, with <b>prefix sums</b> being very common.
             <br><br>
-            Let's examine how a prefix sum array can help optimize our code with the following problem:
+            A suffix operation array is analogous and \(\text{sfx}[i]\) stores the result of an operation done for the last \(i \text{ }(1 \le i \le N)\) elements in the array.
+            <br><br>
+            Let's examine how a <b>prefix sum array</b> can help optimize our code with the following problem:
             <br><br>
             <code>Given an array with</code> \(N \text{ } (1 \le N \le 10^6)\) <code>integers, you are given </code> \(Q \text{ } (1 \le Q \le 10^6)\) <code> queries that ask you to output the sum <br>
             of the elements in the array in the range </code> \([i, j] \text{ } (1 \le i, j \le N)\) <code>.</code>
@@ -30,9 +32,48 @@
             <br><br>
             How can we optimize this?
             <br><br>
-            With a prefix sum array we are able to get the sum of the first \(i\) numbers 
+            With a prefix sum array we are able to get the sum of the first \(i\) numbers in constant time - a single array access to \(\text{pfx}[i]\), with
+            \(\text{pfx}\) being a prefix sum array.
+            <br><br>
+            How do we make a prefix sum array? The analysis is very simple:
+            $$
+            \text{pfx}[i] = \text{pfx}[i-1] + \text{arr}[i]
+            $$
+            In code (C++):
+            <code><pre>
+int* makePrefix(int *arr, int n) { // n is the length of the array
+    int* pfx = new int[n];
+    pfx[0] = arr[0];
+    for (int i = 1; i < n; ++i) {
+        pfx[i] = pfx[i-1] + arr[i];
+    }
+    return pfx;
+}
+            </pre></code>
+            We can simply access \(\text{pfx}[i]\) for the sum of the first \(i\) integers. Note that the creation of this array runs in \(\mathcal{O}(N)\) time.
+            <br><br>
+            Going back to the question, how can this help us query the range in constant time?
+            <br><br>
+            Notice that the sum of the range \([i, j]\) can be obtained with by subtracting \(\text{pfx}[j]\) by \(\text{pfx}[i-1]\). This is because we do not want 
+            <br>
+            to include any numbers <b>before</b> \(\text{pfx}[i]\) in the answer to the query. 
+            <code><pre>
+int query(int *pfx, int i, int j) { // Assume 0-indexed ranges
+    if (i == 0) return pfx[j];
+    return pfx[j] - pfx[i - 1];
+}       
+            </pre></code>
+            Just repeat this process for each query, and problem solved! This is also a very simple example of the <b>principle of inclusion and exclusion</b> (PIE).
+            <br>
+            As we look into higher dimensions of this data structure, we will see how this principle becomes more important.
+            <br>
+            The time complexity of this program is \(\mathcal{O}(Q)\), the number of queries.
+            <br><br>
             <h2>Versatility</h2>
-            Prefix and suffix arrays do not have to only deal with sums:  
+            Prefix and suffix arrays do not have to only deal with sums - many other operations are valid too, such as prefix and suffix GCD arrays.
+            <br><br>
+            <h2>2-Dimensional prefix sum arrays</h2>
+            In order to make a 2-D prefix sum array, we let \(\text{pfx}[i][j]\) represent the sum of the rectangle with corners \(\text{arr}[0][0]\) and \(\text{arr}[i][j]\). 
             </p>
             <br><br><br>
         </div>
