@@ -1,0 +1,23 @@
+.introduction {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin-top: 100px;
+    margin-left: 100px;
+    text-align: left;
+}
+
+.introduction a {
+    text-decoration: none;
+}
+
+.introduction a:link {
+    color:lightslategray;
+}
+
+.introduction a:visited {
+    color:lightslategray;
+}
+
+.introduction a:hover {
+    color:blue;
+}
