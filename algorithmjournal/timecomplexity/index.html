@@ -132,7 +132,7 @@ int f(int *arr, int n) { // n is the length of the array
             <br><br>
             <code><pre>
 int f(int *arr, int n) { // n is the length of the array
-    std::sort(arr, sizeof arr + n);
+    std::sort(arr, arr + n);
     return arr[n-1];
 }
             </pre></code>

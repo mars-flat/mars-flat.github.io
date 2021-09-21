@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Prefix and Suffix Arrays</title>
+        <link rel="stylesheet" href="./index.css" type="text/css"/>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    </head>
+    <body>
+        <div class="content">
+            <h1>Prefix and Suffix Arrays</h1>
+            <p>
+            Prefix and suffix arrays are simple data structures that can be used to optimize some problems from \(\mathcal{O}(N^2)\) to \(\mathcal{O}(N)\) time.
+            <br><br>
+            Simply put, \(\text{pfx}[i]\) stores the result of an operation done for the first \(i \text{ }(1 \le i \le N)\) elements in the array (\(N\) being the size of the array). 
+            <br>
+            This operation can be of many types, with <b>prefix sums</b> being very common.
+            <br><br>
+            Let's examine how a prefix sum array can help optimize our code with the following problem:
+            <br><br>
+            <code>Given an array with</code> \(N \text{ } (1 \le N \le 10^6)\) <code>integers, you are given </code> \(Q \text{ } (1 \le Q \le 10^6)\) <code> queries that ask you to output the sum <br>
+            of the elements in the array in the range </code> \([i, j] \text{ } (1 \le i, j \le N)\) <code>.</code>
+            <br><br>
+            The naive way to tackle this problem is for each query, we can iterate over the range and output the resulting sum. Because we 
+            will be doing this up to a <br>
+            million times, and the difference between \(i\) and \(j\) can also be up to a million, multiplying these two values will result 
+            in up to \(10^\text{12}\) operations, which is very slow.
+            <br>
+            We can also see that the time complexity of this algorithm is \(\mathcal{O}(NQ)\).
+            <br><br>
+            How can we optimize this?
+            <br><br>
+            With a prefix sum array we are able to get the sum of the first \(i\) numbers 
+            <h2>Versatility</h2>
+            Prefix and suffix arrays do not have to only deal with sums:  
+            </p>
+            <br><br><br>
+        </div>
+    </body>
+</html>
