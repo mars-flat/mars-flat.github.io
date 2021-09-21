@@ -54,7 +54,7 @@
             With an \(\mathcal{O}(\log_2 N)\) algorithm, only around \(17\) operations will be used for an input of the same size (not including reading input). 
             <br><br>
             Note that "operations" may mean different things and is not the best indicator of how long a program will take.
-            This is known as a <b>constant factor</b>.
+            This variation is known as a <b>constant factor</b>.
             <br> 
             However, it will often give us a good enough estimate for solving problems.
             <br><br>
@@ -66,16 +66,26 @@
             There are different types of complexity, notably:
             <br><br>
             <ul>
-                <li>Average complexity, as stated earlier</li>
-                <li>Amortized complexity</li>
-                <li>Worst case complexity</li>
-                <li>expected complexity</li>
+                <li>Average complexity, as stated earlier</li><br>
+                <li>Amortized complexity</li><br>
+                <li>Worst-case complexity</li><br>
+                <li>Expected complexity</li>
             </ul>
             <br>
             For more information, see the following <a href="https://people.ksp.sk/~kuko/gnarley-trees/Complexity2.html">link</a>.
             <br><br>
             <h2>Examples</h2>
-
+            The following problem will be used to showcase how algorithms of different complexities solve the same problem.
+            <br><br>
+            <code>
+                Given an array of </code> \(N\text{ }\) <code> integers, output the largest element of this array.
+            </code>
+            <h4>\(\mathcal{O}(N^2)\) solution:</h4>
+            For each element, iterate the entire list to check if there is a number greater than it. If this is not the case, 
+            then we have found it-<br>
+            otherwise, go to the next element.
+            <br><br>
+            This algorithm has a worst-case time complexity of \(\mathcal{O}(N^2)\) as there is a possibility to iterate all \(N\) elements \(N\) times. 
             </p>
         </div>
     </body>
