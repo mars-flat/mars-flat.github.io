@@ -11,7 +11,81 @@
             <h1>Binary Search</h1>
             <p>
             Binary search is a well-known algorithm for searching arrays in a <b>sorted</b> array.
+            <br>
+            To explain simply, the algorithm will continuously divide arrays into portions of the list that 
+            may contain the element required.
+            <br><br>
+            The algorithm compares the middle value of the portion to the element required and determines whether to
+            <br>
+            only look at values less than the element, or more, stopping if the element is found at the middle value of the portion.
+            <br><br>
+            This can only be done on sorted lists as all lesser values are guaranteed to be on the other side of all greater values
+            of a list.
+            <br><br>
+            The time complexity of this algorithm is \(\mathcal{O}(\log N)\) on a pre-sorted array.
+            <br><br>
+            <h2>Examples</h2>
+            One problem that can be solved using binary search is a simple number guessing game.
+            <br><br>    
+            <code>Guess my number </code> \(N\text{ }(1 \le N \le 100)\) <code>! Every guess, I will tell you 
+                if it is too high, too low, or correct.
+            </code>
+            <br><br>
+            The naive algorithm is simply guessing every single number in the range, which suffices with the constraints above.
+            <br>
+            But what if the constraints were higher, such as \((1 \le N \le 10^\text{18})\)?
+            <br><br>
+            The naive algorithm is now much too slow for these numbers. We need a solution that runs in \(\mathcal{O}(\log N)\) time.
+            <br>
+            We can implement binary search to find the answer. 
+            <br><br>
+            <code><pre>
+// function that returns "TOO HIGH" if guess is too high,
+// "TOO LOW" if guess is too low, and "OK" if guess is correct
 
+string answer(long long guess) {
+    long long const ans = 2147483647L; // Answer - guess() doesn't know this 
+    if (guess == ans) return "OK";
+    else if (guess < ans) return "TOO LOW";
+    else return "TOO HIGH";
+}
+
+void guess() { 
+    long long lo = 1, hi = 1e18; // initial bounds of the portion
+    while (lo <= hi) {
+        long long mid = (lo + hi) / 2; // middle of the portion
+        string res = answer(mid); 
+        if (res == OK) return;
+        // set the bounds of the new portion to [lo, mid]
+        else if (res == "TOO LOW") hi = mid;
+        // set the bounds of the new portion to [mid, hi]
+        else lo = mid;
+    }
+}
+            </pre></code>
+            This algorithm runs in \(\mathcal{O}(\log N)\) time and is able to quickly guess the number even with the huge constraints.
+            <br><br>
+            Many languages have a pre-impemented binary search function, such as C++'s 
+            <code>std::upper_bound()</code> and <code>std::lower_bound()</code>.
+            <br>
+            Java has a <code>Collections.binarySearch()</code> for lists and <code>Arrays.binarySearch()</code> for arrays.
+            <br><br>
+            Binary search is quite versatile. Problems can often use variations of this algorithm, such as the following:
+            <br><br>
+            <code>An array of</code> \(N\) <code>integers has the first</code> \(\text{ }i \text{ }(1 \le i < N)\) <code>elements set to 1, and all 
+                elements after set to 0. <br>Find the index of the last element set to 1.</code>
+
+            <br><Br>
+            For this problem, we can simply imagine the last index set to 1 as the number to guess. The answer is if the middle element <br>
+            of the portion is \(1\) and the element after it is \(0\). We also know that if the middle element is \(0\), the index is lower.
+            <br> Finally, if the middle element is \(1\) and the next one is also \(1\), the index is higher.
+            <br><br>
+            This brings what would normally be an \(\mathcal{O}(N)\) problem to \(\mathcal{O}(\log N)\).
+            <h2>More problems</h2>
+            <ul>
+                <li><a href="https://dmoj.ca/problem/seed2">DMOJ - Uneven Sand</a></li><br>
+                <li><a href="https://dmoj.ca/problem/seed2">DMOJ - Uneven Sand</a></li><br>
+            </ul>
             </p>
             <br><br><br>
         </div>
