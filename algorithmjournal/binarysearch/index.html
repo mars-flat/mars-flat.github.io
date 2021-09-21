@@ -75,16 +75,20 @@ void guess() {
             <code>An array of</code> \(N\) <code>integers has the first</code> \(\text{ }i \text{ }(1 \le i < N)\) <code>elements set to 1, and all 
                 elements after set to 0. <br>Find the index of the last element set to 1.</code>
 
-            <br><Br>
-            For this problem, we can simply imagine the last index set to 1 as the number to guess. The answer is if the middle element <br>
-            of the portion is \(1\) and the element after it is \(0\). We also know that if the middle element is \(0\), the index is lower.
-            <br> Finally, if the middle element is \(1\) and the next one is also \(1\), the index is higher.
             <br><br>
-            This brings what would normally be an \(\mathcal{O}(N)\) problem to \(\mathcal{O}(\log N)\).
+            Of course, the simple way would be to simply iterate until an index set to \(0\) is reached, which is \(\mathcal{O}(N)\).
+            <br><br>
+            In order to use binary search for this problem, we can simply imagine the last index set to 1 as the number to guess. <br>
+            The answer is if the middle element of the portion is \(1\) and the element after it is \(0\). We also know that if the middle element is \(0\), <br>
+            the index is lower. Finally, if the middle element is \(1\) and the next one is also \(1\), the index is higher.
+            <br><br>
+            This is an optimization from \(\mathcal{O}(N)\) to \(\mathcal{O}(\log N)\). This is a rather simple example though - keep your eyes peeled
+            <br>
+            for more problems that require binary search.
             <h2>More problems</h2>
             <ul>
                 <li><a href="https://dmoj.ca/problem/seed2">DMOJ - Uneven Sand</a></li><br>
-                <li><a href="https://dmoj.ca/problem/seed2">DMOJ - Uneven Sand</a></li><br>
+                <li><a href="https://dmoj.ca/problem/oly18decp5">DMOJ - Guessing Game</a></li><br>
             </ul>
             </p>
             <br><br><br>
