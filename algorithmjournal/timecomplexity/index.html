@@ -60,6 +60,8 @@
             <br><br>
             On most judges, a time limit of \(1\) second can allow up to \(10^8\) operations with a decent constant factor.
             <br>
+            Constant factors are often removed from complexity notations.
+            <br>
             There are many ways to optimize code to improve constant factors, but they will not be discussed within this section.
             <br><br>
             <h2>Different notations of complexity</h2>
@@ -78,7 +80,7 @@
             The following problem will be used to showcase how algorithms of different complexities solve the same problem.
             <br><br>
             <code>
-                Given an array of </code> \(N\text{ }\) <code> integers, output the largest element of this array.
+                Given an array of </code> \(N\text{ }\) <code> integers, return the largest element of this array.
             </code>
             <h4>\(\mathcal{O}(N^2)\) solution:</h4>
             For each element, iterate the entire list to check if there is a number greater than it. If this is not the case, 
@@ -86,7 +88,92 @@
             otherwise, go to the next element.
             <br><br>
             This algorithm has a worst-case time complexity of \(\mathcal{O}(N^2)\) as there is a possibility to iterate all \(N\) elements \(N\) times. 
+            <br>
+            The implementation is shown here (C++):
+            <br><br>
+            <code><pre>
+int f(int *arr, int n) { // n is the length of the array
+    for (int const &elem: arr) {
+        bool hasGreater = false;
+        for (int const &cmp: arr) {
+            if (cmp > elem) hasGreater = true;
+        }
+        if (!hasGreater) return elem;
+    }
+    return -1;
+}
+            </pre></code>
+            <br>
+            A simple way to find the time complexity of a program is to observe 
+            loops in the code (i.e. for loops, while loops). 
+            <br>
+            In this case, we see that there are two nested loops, both of which iterate 
+            the entire array. Knowing that an iteration is \(N\) operations,
+            <br>
+            and the program performs this iteration \(N\) times, \(N \times N\) = \(N^2\).
+            <br><br>
+            Note that built-in methods or functions are not all \(\mathcal{O}(1)\) operations - this is a common 
+            <br>mistake when identifying the complexity of a program.
+            <h4>\(\mathcal{O}(N \log N)\) solution:</h4>
+            There are many different types of sorting algorithms, with different complexities.
+            <br>
+            Simple, yet less efficient sorting algorithms, such as bubble sort, run in \(\mathcal{O}(N^2)\) time 
+            on average.
+            <br>
+            Efficient sorting algorithms have an average runtime of \(\mathcal{O}(N \log N)\) which is 
+            what is generally accepted as the time complexity of of sorting.
+            <br><br>
+            In C++, the <code>std::sort()</code> function has an average runtime of \(\mathcal{O}(N \log N)\),
+            <br> 
+            but in Java the <code>Arrays.sort()</code> method is slow - the worst case runtime is \(\mathcal{O}(N^2)\).
+            <br><br>
+            The many sorting algorithms will not be explained here, but for further information, see the following 
+            <a href="https://en.wikipedia.org/wiki/Sorting_algorithm">link</a>.
+            <br><br>
+            <code><pre>
+int f(int *arr, int n) { // n is the length of the array
+    std::sort(arr, sizeof arr + n);
+    return arr[n-1];
+}
+            </pre></code>
+            <h4>\(\mathcal{O}(N)\) solution:</h4>
+            This is the most efficient algorithm for this problem.
+            <br><br>
+            We can maintain a variable that stores the maximum element for the first \(i\) elements,
+            and update it should the <br>
+            next one be greater than the current maximum. This only requires one iteration of the array, 
+            <br>thus the algorithm's time complexity is \(\mathcal{O}(N)\).
+            <br><br>
+            <code><pre>
+int f(int *arr, int n) { // n is the length of the array
+    int mx = INT_MIN;
+    for (int const &elem: arr) {
+        if (elem > mx) mx = elem;
+    }
+    return mx;
+}
+            </pre></code>
+            <br>
+            Remember that array accessing, comparisons, and assignments are constant time operations.
+            <h2>Final thoughts</h2>
+            Here are estimates of the input size various time complexities can run in one second:
+            <ul>
+                <li>\(N \le 10\): \(\mathcal{O}(N!)\)</li><br>  
+                <li>\(N \le 5\text{ }000\): \(\mathcal{O}(N^2)\)</li><br>
+                <li>\(N \le 500\text{ }000\): \(\mathcal{O}(N \log N)\)</li><br>
+                <li>\(N \le 10^7\): \(\mathcal{O}(N)\)</li><br>
+                <li>\(N \le 10^\text{18}\): \(\mathcal{O}(\log N)\), \(\mathcal{O}(1)\)</li><br>
+            </ul>
+            <br>
+            Once again, constant factors may influence this, and is not a perfectly accurate measurement.
+            <h2>Resources & references</h2>
+            <ul>
+                <li>
+                    <a href="https://usaco.guide/bronze/time-comp?lang=cpp">USACO guide</a>
+                </ll>
+            </ul>
             </p>
+            <br><br><br>
         </div>
     </body>
 </html>
