@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>Algorithm Journal</title>
+        <link rel="stylesheet" href="./index.css" type="text/css"/>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    </head>
+    <body>
+        <div class="content">
+            <h1>Time Complexity</h1>
+            <p>
+            Time complexity is a measure of the runtime of an algorithm.
+            The complexity of a function \(f(n)\) is represented using big \(\mathcal{O}\) notation.
+            <br><br>
+            Here are some common complexities:
+            <br><br>
+            <ul>
+                <li>
+                    \(\mathcal{O}(1)\) - Also known as constant time, algorithms with this 
+                    complexity use a constant number of operations (eg. addition).
+                </li>
+                <br>
+                <li>
+                    \(\mathcal{O}(\log N)\) - Algorithms with this complexity use a logarithmic 
+                    number of operations (eg. binary search).
+                </li>
+                <br>
+                <li>
+                    \(\mathcal{O}(N)\) - Linear time complexity, linear number of operations (eg. linear search).
+                </li>
+                <br>
+                <li>
+                    \(\mathcal{O}(N \log N)\) - Linearithmic time complexity (eg. <b>average complexity</b> of merge sort)
+                </li>
+                <br>
+                <li>
+                    \(\mathcal{O}(N^2)\) - A quadratic time complexity (eg. iterating through all substrings of a string)
+                </li>
+                <br>
+                <li>
+                    \(\mathcal{O}(N!)\) - This is factorial complexity (eg. iterating through all permutations)
+                </li>
+            </ul>
+            <br>
+            With time complexity, we can estimate the number of operations our program will use, and thus, 
+            estimate the time it will take for it to run. 
+            <br>
+            For example, an \(\mathcal{O}(N)\)
+            will use \(100\text{ }000\) operations for an input of size \(100\text{ }000\).
+            <br><br>
+            With an \(\mathcal{O}(N^2)\) algorithm, about \(10^\text{10}\) operations will be used for an input of the same size. 
+            <br><br>
+            With an \(\mathcal{O}(\log_2 N)\) algorithm, only around \(17\) operations will be used for an input of the same size (not including reading input). 
+            <br><br>
+            Note that "operations" may mean different things and is not the best indicator of how long a program will take.
+            This is known as a <b>constant factor</b>.
+            <br> 
+            However, it will often give us a good enough estimate for solving problems.
+            <br><br>
+            On most judges, a time limit of \(1\) second can allow up to \(10^8\) operations with a decent constant factor.
+            <br>
+            There are many ways to optimize code to improve constant factors, but they will not be discussed within this section.
+            <br><br>
+            <h2>Different notations of complexity</h2>
+            There are different types of complexity, notably:
+            <br><br>
+            <ul>
+                <li>Average complexity, as stated earlier</li>
+                <li>Amortized complexity</li>
+                <li>Worst case complexity</li>
+                <li>expected complexity</li>
+            </ul>
+            <br>
+            For more information, see the following <a href="https://people.ksp.sk/~kuko/gnarley-trees/Complexity2.html">link</a>.
+            <br><br>
+            <h2>Examples</h2>
+
+            </p>
+        </div>
+    </body>
+</html>
