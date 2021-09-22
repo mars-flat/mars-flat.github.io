@@ -71,6 +71,8 @@ static int query(int[] pfx, int i, int j) { // Assume 0-indexed ranges
             The time complexity of this program is \(\mathcal{O}(Q)\), the number of queries.
             <br><br>
             In practice, it helps to \(1\)-index the data structure as extra conditionals are needed in the case where \(i = 0\) otherwise.
+            <br><br>
+            Note that updating the original array in any way will require the entire structure to be rebuilt, rendering this structure useless for problems like such.
             <h2>Versatility</h2>
             Prefix and suffix arrays do not have to only deal with sums - many other operations are valid too, such as prefix and suffix GCD arrays.
             <br>
