@@ -37,6 +37,12 @@
             on this array <br>
             in the form </code>\(L\text{ }R\text{ }V\)  <code>(1-indexed), return the final array after these operations.           
             </code>
+            <br><br>
+            The naive solution would be, for every update query, to iterate and add the value to each affected index. This solution turns out 
+            <br>
+            to be \(\mathcal{O}(NQ)\), too slow for the constraints listed.
+            <br><br>
+            We can use a difference array to perform <b>all</b> queries at once, in \(\mathcal{O}(N)\) time.
             <code><pre>
 
 // n = length of array, q = number of queries
