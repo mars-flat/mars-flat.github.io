@@ -14,9 +14,9 @@
             <br><br>
             Simply put, \(\text{pfx}[i]\) stores the result of an operation done for the first \(i \text{ }(1 \le i \le N)\) elements in the array (\(N\) being the size of the array). 
             <br>
-            This operation can be of many types, with <b>prefix sums</b> being very common.
+            This operation can be of many types such as sums, greatest common divisor (GCD), maximums, minimums, etc.
             <br><br>
-            A suffix operation array is analogous and \(\text{sfx}[i]\) stores the result of an operation done for the last \(i \text{ }(1 \le i \le N)\) elements in the array.
+            A suffix operation array is analogous, with \(\text{sfx}[i]\) storing the result of an operation done for the last \(i \text{ }(1 \le i \le N)\) elements in the array.
             <br><br>
             Let's examine how a <b>prefix sum array</b> can help optimize our code with the following problem:
             <br><br>
@@ -32,18 +32,17 @@
             <br><br>
             How can we optimize this?
             <br><br>
-            With a prefix sum array we are able to get the sum of the first \(i\) numbers in constant time - a single array access to \(\text{pfx}[i]\), with
-            \(\text{pfx}\) being a prefix sum array.
+            With a prefix sum array we are able to get the sum of the first \(i\) numbers in constant time - a single array access to \(\text{pfx}[i]\).
             <br><br>
             How do we make a prefix sum array? The analysis is very simple:
             $$
             \text{pfx}[i] = \text{pfx}[i-1] + \text{arr}[i]
             $$
-            In code (C++):
+            In code (Java):
             <code><pre>
-int* makePrefix(int *arr, int n) { // n is the length of the array
-    int* pfx = new int[n];
-    pfx[0] = arr[0];
+static int[] makePrefix(int[] arr, int n) { // n is the length of the array
+    int[] pfx = new int[n];
+    pfx[0] = arr[0]; // first value
     for (int i = 1; i < n; ++i) {
         pfx[i] = pfx[i-1] + arr[i];
     }
@@ -56,24 +55,94 @@ int* makePrefix(int *arr, int n) { // n is the length of the array
             <br><br>
             Notice that the sum of the range \([i, j]\) can be obtained with by subtracting \(\text{pfx}[j]\) by \(\text{pfx}[i-1]\). This is because we do not want 
             <br>
-            to include any numbers <b>before</b> \(\text{pfx}[i]\) in the answer to the query. 
+            to include any numbers <b>before</b> \(\text{pfx}[i]\) in the answer to the query. This is a <b>special property</b> of a prefix sum array.
             <code><pre>
-int query(int *pfx, int i, int j) { // Assume 0-indexed ranges
+static int query(int[] pfx, int i, int j) { // Assume 0-indexed ranges
     if (i == 0) return pfx[j];
     return pfx[j] - pfx[i - 1];
 }       
             </pre></code>
             Just repeat this process for each query, and problem solved! This is also a very simple example of the <b>principle of inclusion and exclusion</b> (PIE).
             <br>
+            For more information on PIE, see the following <a href="https://artofproblemsolving.com/wiki/index.php/Principle_of_Inclusion-Exclusion">link</a>.
+            <br><br>
             As we look into higher dimensions of this data structure, we will see how this principle becomes more important.
             <br>
             The time complexity of this program is \(\mathcal{O}(Q)\), the number of queries.
             <br><br>
+            In practice, it helps to \(1\)-index the data structure as extra conditionals are needed in the case where \(i = 0\) otherwise.
             <h2>Versatility</h2>
             Prefix and suffix arrays do not have to only deal with sums - many other operations are valid too, such as prefix and suffix GCD arrays.
+            <br>
+            Here is an problem that we can apply this to:
+            <br><br>
+            <code>
+            Given an array of </code> \(N \text{ } (1 \le N \le 10^5)\) <code>integers, you can optionally choose one of them and replace it with an integer of your choice.
+            <br>
+            Find the maximum possible greatest common divisor of the entire array of integers given this operation.
+            </code>
+            <br><br>
+            This problem may seem quite difficult at first, but here are some important things to notice.
+            <br><br>
+            Notice that because we only change one element, we can partition the array into \(2\) arrays \([0, i-1]\) and \([i+1, N]\) where element \(i\) is the 
+            <br>
+            one being modified. Next, we notice that the GCD of the \(2\) partitions is the maximum value the element can be changed to to have an impact on the total
+            <br>
+            GCD. The end result will be the maximum GCD of the two partitions \([0, i-1]\) and \([i+1, N]\) for all \((1 \le i \le N)\).
+            <br><br>
+            Now all that's left is to be able to quickly get the GCD of these partitions, and one way is to use a prefix and a suffix GCD array.
+            <br>
+            Note that this problem will require the knowledge of a fast GCD in \(\mathcal{O}(\log N)\). For more information,
+            see the following <a href="https://cp-algorithms.com/algebra/euclid-algorithm.html">link</a>.
+            <br><br>
+            This way, we're able to execute the idea above in \(\mathcal{O}(N \log N)\).
             <br><br>
             <h2>2-Dimensional prefix sum arrays</h2>
             In order to make a 2-D prefix sum array, we let \(\text{pfx}[i][j]\) represent the sum of the rectangle with corners \(\text{arr}[0][0]\) and \(\text{arr}[i][j]\). 
+            <br><br>
+            To build the array, we can use the following recurrence (as long as all values in this expression are known):
+            $$
+            \text{pfx}[i][j] = \text{pfx}[i-1][j] + \text{pfx}[i][j-1] - \text{pfx}[i-1][j-1] + \text{arr}[i][j]
+            $$
+            Note that for this structure, we will be \(1\)-indexing our matrix for less clutter with conditionals. We also assume that the initial 
+            <br>
+            matrix is \(1\)-indexed, but this implementation is up to you.
+            <br><br>
+            In code:
+            <code><pre>
+static int[][] makePrefix(int[][] arr, int n, int m) {
+    int[][] pfx = new int[n+1][m+1];
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            pfx[i][j] = pfx[i-1][j] + pfx[i][j-1] - pfx[i-1][j-1] + arr[i][j];
+        }
+    }
+    return pfx;
+}
+            </pre></code>
+            <br>
+            We add \(\text{pfx}[i-1][j]\) because it queries the sum we currently know above the cell, and \(\text{pfx}[i][j-1]\) quering the sum we currently know 
+            to the left of it. 
+            <br>
+            Notice how a portion of these queries will be counted both times, specifically \(\text{pfx}[i-1][j-1]\), in which we should subtract it. 
+            See how we use PIE here?
+            <br><br>
+            Querying this structure (given the known bounds \((i_1, j_1)\) and \((i_2, j_2)\) is essentially the building process in reverse.
+            <br>
+            Query the cell \(\text{pfx}[i_2][j_2]\), subtract the cells above this range (\(\text{pfx}[i_1-1][j_2]\)) as well as the cells to the left (\(\text{pfx}[i_1][j_1-1]\))
+            <br>
+            and we see that we have subtracted a certain section twice, specifically the area from \(\text{pfx}[0][0]\) to \(\text{pfx}[i_1-1][j_1-1]\). Thus, we add this back.
+            <code><pre>
+static int query(int[][] pfx, int x1, int y1, int x2, int y2) { // everything 1-indexed
+    return pfx[x2][y2] - pfx[x1-1][y2] - pfx[x2][y1-1] + pfx[x1-1][y1-1];
+}
+            </pre></code>
+            Building the structure has the time complexity of \(\mathcal{O}(NM)\) and queries are \(\mathcal{O}(1)\). Constant time \(2\)-D queries!!!
+            <h2>More problems</h2>
+            <ul>
+                <li><a href="https://dmoj.ca/problem/seed3">DMOJ - Battle Positions</a></li><br>
+                <li><a href="https://dmoj.ca/problem/dmopc14c2p4">DMOJ - Deforestation</a></li><br>
+            </ul>
             </p>
             <br><br><br>
         </div>

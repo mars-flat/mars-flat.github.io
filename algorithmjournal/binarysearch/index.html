@@ -43,20 +43,18 @@
 // function that returns "TOO HIGH" if guess is too high,
 // "TOO LOW" if guess is too low, and "OK" if guess is correct
 
-string answer(long long guess) {
-    long long const ans = 2147483647L; // Answer - guess() doesn't know this
+static String answer(long guess) {
+    final long ans = 2147483647L; // Answer - guess() doesn't know this
     if (guess == ans) return "OK";
     else if (guess < ans) return "TOO LOW";
     else return "TOO HIGH";
 }
 
-void guess() {
-    long long lo = 1, hi = 1e18; // initial bounds of the portion
+static void guess() {
+    long lo = 1, hi = (long)1e18; // initial bounds of the portion
     while (lo <= hi) {
-        long long mid = (lo + hi) / 2; // middle of the portion
-        cout << mid << '\n';
-        string res = answer(mid);
-        cout << res << '\n';
+        long mid = (lo + hi) / 2; // middle of the portion
+        String res = answer(mid);
         if (res == "OK") return;
             // set the bounds of the new portion to [lo, mid]
         else if (res == "TOO HIGH") hi = mid;

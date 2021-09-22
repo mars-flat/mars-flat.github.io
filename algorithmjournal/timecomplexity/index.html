@@ -89,12 +89,12 @@
             <br><br>
             This algorithm has a worst-case time complexity of \(\mathcal{O}(N^2)\) as there is a possibility to iterate all \(N\) elements \(N\) times. 
             <br>
-            The implementation is shown here (C++):
+            The implementation is shown here (Java):
             <br><br>
             <code><pre>
-int f(int *arr, int n) { // n is the length of the array
+static int f(int[] arr, int n) { // n is the length of the array
     for (int i = 0; i < n; ++i) {
-        bool hasGreater = false;
+        boolean hasGreater = false;
         for (int j = 0; j < n; ++j) {
             if (arr[j] > arr[i]) hasGreater = true;
         }
@@ -125,14 +125,14 @@ int f(int *arr, int n) { // n is the length of the array
             <br><br>
             In C++, the <code>std::sort()</code> function has an average runtime of \(\mathcal{O}(N \log N)\),
             <br> 
-            but in Java the <code>Arrays.sort()</code> method is slow - the worst case runtime is \(\mathcal{O}(N^2)\).
+            but in Java the <code>Arrays.sort()</code> method is slow on primitives - the worst case runtime is \(\mathcal{O}(N^2)\).
             <br><br>
             The many sorting algorithms will not be explained here, but for further information, see the following 
             <a href="https://en.wikipedia.org/wiki/Sorting_algorithm">link</a>.
             <br><br>
             <code><pre>
-int f(int *arr, int n) { // n is the length of the array
-    std::sort(arr, arr + n);
+static int f(Integer[] arr, int n) { // n is the length of the array
+    Arrays.sort(arr);
     return arr[n-1];
 }
             </pre></code>
@@ -145,8 +145,8 @@ int f(int *arr, int n) { // n is the length of the array
             <br>thus the algorithm's time complexity is \(\mathcal{O}(N)\).
             <br><br>
             <code><pre>
-int f(int *arr, int n) { // n is the length of the array
-    int mx = INT_MIN;
+static int f(int[] arr, int n) { // n is the length of the array
+    int mx = Integer.MIN_VALUE;
     for (int i = 0; i < n; ++i) {
         if (arr[i] > mx) mx = arr[i];
     }
