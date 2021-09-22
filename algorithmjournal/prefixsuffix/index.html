@@ -25,7 +25,7 @@
             <br><br>
             The naive way to tackle this problem is for each query, we can iterate over the range and output the resulting sum. Because we 
             will be doing this up to a <br>
-            million times, and the difference between \(i\) and \(j\) can also be up to a million, multiplying these two values will result 
+            million times, and the difference between \(i\) and \(j\) can also be up to a million. Multiplying these two values will result 
             in up to \(10^\text{12}\) operations, which is very slow.
             <br>
             We can also see that the time complexity of this algorithm is \(\mathcal{O}(NQ)\).
@@ -72,7 +72,9 @@ static int query(int[] pfx, int i, int j) { // Assume 0-indexed ranges
             <br><br>
             In practice, it helps to \(1\)-index the data structure as extra conditionals are needed in the case where \(i = 0\) otherwise.
             <br><br>
-            Note that updating the original array in any way will require the entire structure to be rebuilt, rendering this structure useless for problems like such.
+            Note that updating the original array in any way will require the entire structure to be rebuilt, so this structure cannot be used for problems requiring this.
+            <br>
+            If you want a data structure that can perform both updating and querying, check out the Binary Indexed Tree.
             <h2>Versatility</h2>
             Prefix and suffix arrays do not have to only deal with sums - many other operations are valid too, such as prefix and suffix GCD arrays.
             <br>
@@ -100,7 +102,7 @@ static int query(int[] pfx, int i, int j) { // Assume 0-indexed ranges
             This way, we're able to execute the idea above in \(\mathcal{O}(N \log N)\).
             <br><br>
             <h2>2-Dimensional prefix sum arrays</h2>
-            In order to make a 2-D prefix sum array, we let \(\text{pfx}[i][j]\) represent the sum of the rectangle with corners \(\text{arr}[0][0]\) and \(\text{arr}[i][j]\). 
+            In order to make a 2-D prefix sum array, we let \(\text{pfx}[i][j]\) represent the sum of the sub-matrix with corners \(\text{arr}[0][0]\) and \(\text{arr}[i][j]\). 
             <br><br>
             To build the array, we can use the following recurrence (as long as all values in this expression are known):
             $$
@@ -129,9 +131,9 @@ static int[][] makePrefix(int[][] arr, int n, int m) {
             Notice how a portion of these queries will be counted both times, specifically \(\text{pfx}[i-1][j-1]\), in which we should subtract it. 
             See how we use PIE here?
             <br><br>
-            Querying this structure (given the known bounds \((i_1, j_1)\) and \((i_2, j_2)\) is essentially the building process in reverse.
+            Querying this structure (given the known bounds \((i_1, j_1)\) and \((i_2, j_2)\) is quite alike.
             <br>
-            Query the cell \(\text{pfx}[i_2][j_2]\), subtract the cells above this range (\(\text{pfx}[i_1-1][j_2]\)) as well as the cells to the left (\(\text{pfx}[i_1][j_1-1]\))
+            Query the cell \(\text{pfx}[i_2][j_2]\), subtract the cells above this range (\(\text{pfx}[i_1-1][j_2]\)) as well as the cells to the left (\(\text{pfx}[i_2][j_1-1]\))
             <br>
             and we see that we have subtracted a certain section twice, specifically the area from \(\text{pfx}[0][0]\) to \(\text{pfx}[i_1-1][j_1-1]\). Thus, we add this back.
             <code><pre>
@@ -139,7 +141,7 @@ static int query(int[][] pfx, int x1, int y1, int x2, int y2) { // everything 1-
     return pfx[x2][y2] - pfx[x1-1][y2] - pfx[x2][y1-1] + pfx[x1-1][y1-1];
 }
             </pre></code>
-            Building the structure has the time complexity of \(\mathcal{O}(NM)\) and queries are \(\mathcal{O}(1)\). Constant time \(2\)-D queries!!!
+            Building the structure has the time complexity of \(\mathcal{O}(NM)\) and queries are \(\mathcal{O}(1)\).
             <h2>More problems</h2>
             <ul>
                 <li><a href="https://dmoj.ca/problem/dmopc14c2p4">DMOJ - Deforestation</a></li><br>

@@ -22,7 +22,9 @@
             This can only be done on sorted lists as all lesser values are guaranteed to be on the other side of all greater values
             of a list.
             <br><br>
-            The time complexity of this algorithm is \(\mathcal{O}(\log N)\) on a pre-sorted array.
+            The time complexity of this algorithm is \(\mathcal{O}(\log N)\) on a pre-sorted array. This is because every new portion is about
+            <br>
+            half the size of the previous one.
             <br><br>
             <h2>Examples</h2>
             One problem that can be solved using binary search is a simple number guessing game.
@@ -65,7 +67,7 @@ static void guess() {
             </pre></code>
             This algorithm runs in \(\mathcal{O}(\log N)\) time and is able to quickly guess the number even with the huge constraints.
             <br><br>
-            Many languages have a pre-impemented binary search function, such as C++'s 
+            Many languages have a pre-impemented binary search function for sorted arrays, such as C++'s 
             <code>std::upper_bound()</code> and <code>std::lower_bound()</code>.
             <br>
             Java has a <code>Collections.binarySearch()</code> for lists and <code>Arrays.binarySearch()</code> for arrays.

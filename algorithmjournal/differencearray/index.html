@@ -10,7 +10,57 @@
         <div class="content">
             <h1>Difference Array</h1>
             <p>
-            
+            Difference arrays are largely connected to the <b>prefix sum array</b> and is a prerequisite for this data structure.
+            <br><br>
+            The goal of a difference array is to perform multiple range updates in one \(\mathcal{O}(N)\) iteration.
+            <br>
+            The limitation is that the updates must be done before a range query, which is done in constant time.
+            <br><br>
+            Difference arrays essentially place a "marker" at the beginning of a range, and another, usually the first one \(\times (-1)\)
+            <br>
+            at the end of the range. This marker is the number add to the range with. 
+            <br><br>
+            For example, we may want to add \(5\) to all indicies in the range \([3, 6]\), and subtract \(2\) to all indicies in the range 
+            \([2, 5]\).
+            <br>
+            From this, we should add \(5\) to index \(3\), \(-5\) to index \(7\) (inclusive range), \(-2\) to index \(2\), and \(2\) to index \(6\). 
+            <br><br>
+            Finally, we can use the method identical to building a prefix sum array to update everything at once.
+            <br><br>
+            The reason to use prefix sums is to carry over the sums from the last index. If there are negative numbers, it will cancel out the 
+            <br>previous additions and result in <b>only</b> the range being updated by the proper amount, nothing else.
+            <br><br>
+            Here is a problem that directly applies this idea:
+            <br><br>    
+            <code>
+            Create an array of length </code> \(N\text{ }(1 \le N \le 10^6)\) <code>. Given </code> \(Q \text{ }(1 \le Q \le 10^6)\text{ }\) <code> range update queries 
+            on this array <br>
+            in the form </code>\(L\text{ }R\text{ }V\)  <code>(1-indexed), return the final array after these operations.           
+            </code>
+            <code><pre>
+
+// n = length of array, q = number of queries
+// queries[i][0] = left bound, queries[i][1] = right bound, queries[i][2] = value 
+int[] rangeUpdate(int n, int q, int[][] queries) {
+    int[] diff = new int[n + 1];
+    for (int i = 0; i < q; ++i) {
+        int l = queries[i][0], r = queries[i][1], v = queries[i][2];
+        diff[l] += v;
+        diff[r + 1] -= v;
+    }
+    for (int i = 1; i <= n; ++i) diff[i] += diff[i-1];
+    return diff;
+}
+            </pre></code>
+            Note how the code \(1\)-indexes arrays for the reason exaplained in the prefix and suffix arrays entry.
+            <br>
+            This algorithm is often regarded as an inverse of a prefix sum array.
+            <br><br>
+            <h2>More problems</h2>
+            <ul>
+                <li><a href="https://dmoj.ca/problem/seed3">DMOJ - Battle Positions</a></li><br>
+                <li><a href="https://dmoj.ca/problem/grind">DMOJ - Hardcore Grinding</a></li>
+            </ul>
             </p>
             <br><br><br>
         </div>
